@@ -1,5 +1,7 @@
 
 "use client";
+// Triggering fresh deployment with latest type fixes
+
 
 import { useState, useMemo, useEffect } from "react";
 import { parseCSVData, aggregateEmployeeData, filterData, EmployeeSummary, AttendanceRecord, DashboardFilters } from "@/lib/data-utils";
