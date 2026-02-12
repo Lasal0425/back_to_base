@@ -14,14 +14,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { X, Search, Filter, RotateCcw } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { DashboardFilters } from "@/lib/data-utils";
 
 interface FilterProps {
     supervisors: string[];
     coes: string[];
     offices: string[];
     shifts: string[];
-    filters: any;
-    setFilters: (filters: any) => void;
+    filters: DashboardFilters;
+    setFilters: (filters: DashboardFilters) => void;
     onRefresh: () => void;
 }
 

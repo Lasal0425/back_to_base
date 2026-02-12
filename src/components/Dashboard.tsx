@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { parseCSVData, aggregateEmployeeData, filterData, EmployeeSummary, AttendanceRecord } from "@/lib/data-utils";
+import { parseCSVData, aggregateEmployeeData, filterData, EmployeeSummary, AttendanceRecord, DashboardFilters } from "@/lib/data-utils";
 import { KPISection } from "./KPISection";
 import { FilterSection } from "./FilterSection";
 import { AttendanceCharts } from "./AttendanceCharts";
@@ -25,7 +25,7 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
     const offices = useMemo(() => Array.from(new Set(data.map(r => r.office))).filter(Boolean).sort(), [data]);
     const shifts = useMemo(() => Array.from(new Set(data.map(r => r.shift))).filter(Boolean).sort(), [data]);
 
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState<DashboardFilters>({
         epf: "",
         supervisor: null,
         coe: null,

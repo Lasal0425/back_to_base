@@ -59,6 +59,14 @@ export interface DashboardData {
     shifts: string[];
 }
 
+export interface DashboardFilters {
+    epf: string;
+    supervisor: string | null;
+    coe: string | null;
+    office: string | null;
+    shift: string | null;
+}
+
 /**
  * Parses and cleans CSV data
  */
@@ -182,13 +190,7 @@ export function aggregateEmployeeData(records: AttendanceRecord[]): EmployeeSumm
  */
 export function filterData(
     summaries: EmployeeSummary[],
-    filters: {
-        epf?: string;
-        supervisor?: string;
-        coe?: string;
-        office?: string;
-        shift?: string;
-    }
+    filters: Partial<DashboardFilters>
 ) {
     return summaries.filter((s) => {
         if (filters.epf && !s.epf.toLowerCase().includes(filters.epf.toLowerCase()) && !s.name.toLowerCase().includes(filters.epf.toLowerCase())) return false;
