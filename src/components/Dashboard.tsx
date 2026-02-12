@@ -27,10 +27,10 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
 
     const [filters, setFilters] = useState<DashboardFilters>({
         epf: "",
-        supervisor: null,
-        coe: null,
-        office: null,
-        shift: null,
+        supervisor: "",
+        coe: "",
+        office: "",
+        shift: "",
     });
 
     const summaries = useMemo(() => aggregateEmployeeData(data), [data]);

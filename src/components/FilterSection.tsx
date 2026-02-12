@@ -35,17 +35,17 @@ export function FilterSection({
     setFilters,
     onRefresh,
 }: FilterProps) {
-    const updateFilter = (key: string, value: string | null) => {
-        setFilters({ ...filters, [key]: value });
+    const updateFilter = (key: string, value: string) => {
+        setFilters({ ...filters, [key as keyof DashboardFilters]: value });
     };
 
     const resetFilters = () => {
         setFilters({
             epf: "",
-            supervisor: null,
-            coe: null,
-            office: null,
-            shift: null,
+            supervisor: "",
+            coe: "",
+            office: "",
+            shift: "",
         });
     };
 
@@ -73,7 +73,7 @@ export function FilterSection({
                         <label className="text-xs font-semibold text-slate-500 mb-1 block">Supervisor</label>
                         <Select
                             value={filters.supervisor || "all"}
-                            onValueChange={(v) => updateFilter("supervisor", v === "all" ? null : v)}
+                            onValueChange={(v) => updateFilter("supervisor", v === "all" ? "" : v)}
                         >
                             <SelectTrigger>
                                 <SelectValue placeholder="All Supervisors" />
@@ -93,7 +93,7 @@ export function FilterSection({
                         <label className="text-xs font-semibold text-slate-500 mb-1 block">CoE</label>
                         <Select
                             value={filters.coe || "all"}
-                            onValueChange={(v) => updateFilter("coe", v === "all" ? null : v)}
+                            onValueChange={(v) => updateFilter("coe", v === "all" ? "" : v)}
                         >
                             <SelectTrigger>
                                 <SelectValue placeholder="All CoEs" />
@@ -131,7 +131,7 @@ export function FilterSection({
                                     ? "bg-slate-900 text-white"
                                     : "hover:bg-slate-100 bg-white"
                                     }`}
-                                onClick={() => updateFilter("office", filters.office === o ? null : o)}
+                                onClick={() => updateFilter("office", filters.office === o ? "" : o)}
                             >
                                 {o}
                                 {filters.office === o && <X className="ml-1 h-3 w-3" />}
@@ -148,7 +148,7 @@ export function FilterSection({
                                     ? "bg-slate-900 text-white"
                                     : "hover:bg-slate-100 bg-white"
                                     }`}
-                                onClick={() => updateFilter("shift", filters.shift === s ? null : s)}
+                                onClick={() => updateFilter("shift", filters.shift === s ? "" : s)}
                             >
                                 {s}
                                 {filters.shift === s && <X className="ml-1 h-3 w-3" />}

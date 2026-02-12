@@ -61,10 +61,10 @@ export interface DashboardData {
 
 export interface DashboardFilters {
     epf: string;
-    supervisor: string | null;
-    coe: string | null;
-    office: string | null;
-    shift: string | null;
+    supervisor: string;
+    coe: string;
+    office: string;
+    shift: string;
 }
 
 /**
