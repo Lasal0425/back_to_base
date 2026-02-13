@@ -105,15 +105,21 @@ export function AttendanceCharts({ data, type }: ChartProps) {
                                 unit="%"
                             />
                             <Tooltip
-                                cursor={{ fill: '#f8fafc' }}
-                                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                                formatter={(value: number | string | (number | string)[] | undefined) => {
-                                    if (value === undefined) return ["0.00%", "Compliance %"];
+                                cursor={{ fill: "#f8fafc" }}
+                                contentStyle={{
+                                    borderRadius: "8px",
+                                    border: "none",
+                                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                                }}
+                                formatter={(value, name) => {
                                     const val = Array.isArray(value) ? value[0] : value;
-                                    const numericValue = typeof val === 'number' ? val : parseFloat(val?.toString() || '0');
-                                    return [`${numericValue.toFixed(2)}%`, "Compliance %"];
+                                    const numericValue =
+                                        typeof val === "number" ? val : parseFloat(val?.toString() || "0");
+
+                                    return [`${numericValue.toFixed(2)}%`, name ?? "Compliance %"];
                                 }}
                             />
+
                             <Bar dataKey="complianceRate" name="Compliance %" radius={[4, 4, 0, 0]}>
                                 {chartData.map((entry, index) => (
                                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
