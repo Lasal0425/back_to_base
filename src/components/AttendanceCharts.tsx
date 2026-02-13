@@ -107,7 +107,8 @@ export function AttendanceCharts({ data, type }: ChartProps) {
                             <Tooltip
                                 cursor={{ fill: '#f8fafc' }}
                                 contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
-                                formatter={(value: number | string | (number | string)[]) => {
+                                formatter={(value: number | string | (number | string)[] | undefined) => {
+                                    if (value === undefined) return ["0.00%", "Compliance %"];
                                     const val = Array.isArray(value) ? value[0] : value;
                                     const numericValue = typeof val === 'number' ? val : parseFloat(val?.toString() || '0');
                                     return [`${numericValue.toFixed(2)}%`, "Compliance %"];
