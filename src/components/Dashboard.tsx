@@ -26,6 +26,7 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
     const coes = useMemo(() => Array.from(new Set(data.map(r => r.coe))).filter(Boolean).sort(), [data]);
     const offices = useMemo(() => Array.from(new Set(data.map(r => r.office))).filter(Boolean).sort(), [data]);
     const shifts = useMemo(() => Array.from(new Set(data.map(r => r.shift))).filter(Boolean).sort(), [data]);
+    const categories = useMemo(() => Array.from(new Set(data.map(r => r.category))).filter(Boolean).sort(), [data]);
 
     const [filters, setFilters] = useState<DashboardFilters>({
         epf: "",
@@ -33,6 +34,7 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
         coe: "",
         office: "",
         shift: "",
+        category: "",
     });
 
     const summaries = useMemo(() => aggregateEmployeeData(data), [data]);
@@ -66,12 +68,35 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
 
     const showNonCompliantSection = showAllNonCompliant || !!(filters.supervisor || filters.coe);
 
+    const dashboardMonth = useMemo(() => {
+        const firstWithDate = data.find(r => r.date && r.date.includes('/'));
+        if (!firstWithDate) return "October 2025";
+
+        try {
+            const months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            // CSV date format is mm/dd/yyyy
+            const [m, d, y] = firstWithDate.date.split('/');
+            const monthIndex = parseInt(m) - 1;
+            const year = y;
+
+            if (monthIndex >= 0 && monthIndex < 12) {
+                return `${months[monthIndex]} ${year}`;
+            }
+            return "October 2025";
+        } catch (e) {
+            return "October 2025";
+        }
+    }, [data]);
+
     return (
-        <div className="flex flex-col gap-8 p-4 md:p-8 max-w-[1600px] mx-auto min-h-screen bg-slate-50/50">
+        <div className="flex flex-col gap-8 p-4 md:p-8 max-w-[1600px] mx-auto min-h-screen bg-slate-50/50" suppressHydrationWarning>
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight text-slate-900">Back to Base - Attendance Dashboard</h1>
-                    <p className="text-slate-500 font-medium">October 2025</p>
+                    <p className="text-slate-500 font-medium">{dashboardMonth}</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <Button
@@ -88,6 +113,7 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
                 coes={coes}
                 offices={offices}
                 shifts={shifts}
+                categories={categories}
                 filters={filters}
                 setFilters={setFilters}
                 onRefresh={handleRefresh}
@@ -105,6 +131,7 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
                     <section className="bg-rose-50/30 p-6 rounded-2xl border border-rose-100 transition-all">
                         <AttendanceTable
                             data={filteredSummaries}
+                            allRecords={data}
                             title="⚠️ Non-Compliant Employees"
                             showNonCompliantOnly={true}
                         />
@@ -114,6 +141,7 @@ export default function Dashboard({ initialRecords }: DashboardProps) {
                 <section>
                     <AttendanceTable
                         data={filteredSummaries}
+                        allRecords={data}
                         title="Overall Employee Summary"
                     />
                 </section>

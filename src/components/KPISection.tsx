@@ -43,14 +43,14 @@ export function KPISection({
         },
         {
             title: "Compliance Rate",
-            value: `${complianceRate.toFixed(1)}%`,
+            value: `${complianceRate.toFixed(2)}%`,
             icon: Percent,
             color: "text-amber-600",
             bg: "bg-amber-50",
         },
         {
             title: "Total Hours",
-            value: totalHours.toLocaleString(undefined, { maximumFractionDigits: 1 }),
+            value: totalHours.toFixed(1),
             icon: Clock,
             color: "text-indigo-600",
             bg: "bg-indigo-50",

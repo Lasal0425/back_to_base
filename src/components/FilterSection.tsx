@@ -21,6 +21,7 @@ interface FilterProps {
     coes: string[];
     offices: string[];
     shifts: string[];
+    categories: string[];
     filters: DashboardFilters;
     setFilters: (filters: DashboardFilters) => void;
     onRefresh: () => void;
@@ -31,6 +32,7 @@ export function FilterSection({
     coes,
     offices,
     shifts,
+    categories,
     filters,
     setFilters,
     onRefresh,
@@ -46,6 +48,7 @@ export function FilterSection({
             coe: "",
             office: "",
             shift: "",
+            category: "",
         });
     };
 
@@ -120,45 +123,66 @@ export function FilterSection({
                 </div>
 
                 {/* Chip Gadgets */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-3 pt-2">
                     <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-xs font-semibold text-slate-400 mr-2 uppercase tracking-wider">Offices:</span>
-                        {offices.map((o) => (
-                            <Badge
-                                key={o}
-                                variant={filters.office === o ? "default" : "outline"}
-                                className={`cursor-pointer px-3 py-1 transition-all ${filters.office === o
-                                    ? "bg-slate-900 text-white"
-                                    : "hover:bg-slate-100 bg-white"
-                                    }`}
-                                onClick={() => updateFilter("office", filters.office === o ? "" : o)}
-                            >
-                                {o}
-                                {filters.office === o && <X className="ml-1 h-3 w-3" />}
-                            </Badge>
-                        ))}
+                        <span className="text-xs font-semibold text-slate-400 mr-2 uppercase tracking-wider w-20">Offices:</span>
+                        <div className="flex flex-wrap gap-2">
+                            {offices.map((o) => (
+                                <Badge
+                                    key={o}
+                                    variant={filters.office === o ? "default" : "outline"}
+                                    className={`cursor-pointer px-3 py-1 transition-all ${filters.office === o
+                                        ? "bg-slate-900 text-white"
+                                        : "hover:bg-slate-100 bg-white"
+                                        }`}
+                                    onClick={() => updateFilter("office", filters.office === o ? "" : o)}
+                                >
+                                    {o}
+                                    {filters.office === o && <X className="ml-1 h-3 w-3" />}
+                                </Badge>
+                            ))}
+                        </div>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-xs font-semibold text-slate-400 mr-2 uppercase tracking-wider">Shifts:</span>
-                        {shifts.map((s) => (
-                            <Badge
-                                key={s}
-                                variant={filters.shift === s ? "default" : "outline"}
-                                className={`cursor-pointer px-3 py-1 transition-all ${filters.shift === s
-                                    ? "bg-slate-900 text-white"
-                                    : "hover:bg-slate-100 bg-white"
-                                    }`}
-                                onClick={() => updateFilter("shift", filters.shift === s ? "" : s)}
-                            >
-                                {s}
-                                {filters.shift === s && <X className="ml-1 h-3 w-3" />}
-                            </Badge>
-                        ))}
+                        <span className="text-xs font-semibold text-slate-400 mr-2 uppercase tracking-wider w-20">Shifts:</span>
+                        <div className="flex flex-wrap gap-2">
+                            {shifts.map((s) => (
+                                <Badge
+                                    key={s}
+                                    variant={filters.shift === s ? "default" : "outline"}
+                                    className={`cursor-pointer px-3 py-1 transition-all ${filters.shift === s
+                                        ? "bg-slate-900 text-white"
+                                        : "hover:bg-slate-100 bg-white"
+                                        }`}
+                                    onClick={() => updateFilter("shift", filters.shift === s ? "" : s)}
+                                >
+                                    {s}
+                                    {filters.shift === s && <X className="ml-1 h-3 w-3" />}
+                                </Badge>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-xs font-semibold text-slate-400 mr-2 uppercase tracking-wider w-20">Categories:</span>
+                        <div className="flex flex-wrap gap-2">
+                            {categories.map((c) => (
+                                <Badge
+                                    key={c}
+                                    variant={filters.category === c ? "default" : "outline"}
+                                    className={`cursor-pointer px-3 py-1 transition-all ${filters.category === c
+                                        ? "bg-slate-900 text-white"
+                                        : "hover:bg-slate-100 bg-white"
+                                        }`}
+                                    onClick={() => updateFilter("category", filters.category === c ? "" : c)}
+                                >
+                                    {c}
+                                    {filters.category === c && <X className="ml-1 h-3 w-3" />}
+                                </Badge>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
         </Card>
     );
 }
-
-

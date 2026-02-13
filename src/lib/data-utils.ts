@@ -65,6 +65,7 @@ export interface DashboardFilters {
     coe: string;
     office: string;
     shift: string;
+    category: string;
 }
 
 /**
@@ -198,6 +199,7 @@ export function filterData(
         if (filters.coe && s.coe !== filters.coe) return false;
         if (filters.office && s.office !== filters.office) return false;
         if (filters.shift && s.shift !== filters.shift) return false;
+        if (filters.category && s.category !== filters.category) return false;
         return true;
     });
 }

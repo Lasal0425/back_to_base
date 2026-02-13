@@ -107,6 +107,7 @@ export function AttendanceCharts({ data, type }: ChartProps) {
                             <Tooltip
                                 cursor={{ fill: '#f8fafc' }}
                                 contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                                formatter={(value: number) => [`${value.toFixed(2)}%`, "Compliance %"]}
                             />
                             <Bar dataKey="complianceRate" name="Compliance %" radius={[4, 4, 0, 0]}>
                                 {chartData.map((entry, index) => (
